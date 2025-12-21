@@ -1,0 +1,3 @@
+SEQ min=1 max=1000000 time=0.388 ms
+OMP min=1 max=1000000 time=0.491 ms
+Speedup: 0.790224

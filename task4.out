@@ -1,0 +1,3 @@
+SEQ avg=50.5057 time=2.558 ms
+OMP avg=50.5057 time=1.048 ms
+Speedup: 2.44084
