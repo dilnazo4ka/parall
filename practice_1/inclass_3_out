@@ -1,0 +1,154 @@
+
+=================================================================
+    LAB 2 - PART 3: Dynamic Memory and Parallel Average
+=================================================================
+[OpenMP] Available
+[OpenMP] Max threads: 8
+
+
+=================================================================
+  DEMONSTRATION: Pointers and Dynamic Memory
+=================================================================
+
+[Demo] Creating array of size 5
+[Demo] Pointer address: 0x133605dc0
+[Demo] Size of pointer: 8 bytes
+[Demo] Size of int: 4 bytes
+
+[Demo] Filling array with values: 10, 20, 30, 40, 50
+
+[Demo] Accessing elements using pointer arithmetic:
+  ptr[0] = 10 (address: 0x133605dc0)
+  ptr[1] = 20 (address: 0x133605dc4)
+  ptr[2] = 30 (address: 0x133605dc8)
+  ptr[3] = 40 (address: 0x133605dcc)
+  ptr[4] = 50 (address: 0x133605dd0)
+
+[Demo] Calculating average...
+[Demo] Sum: 150
+[Demo] Average: 30
+
+[Demo] Freeing memory...
+[Demo] Memory freed
+=================================================================
+
+[Benchmark] Running tests with sizes: 1000, 100000, 10000000
+
+=================================================================
+  BENCHMARK: Dynamic Array Average Calculation
+=================================================================
+Array size: 1000 elements
+Threads: 8
+-----------------------------------------------------------------
+[Memory] Allocating dynamic array of size 1000
+[Memory] Array allocated at address: 0x133809c00
+[Random] Filling array with random numbers [1, 100]
+[Random] Array filled successfully
+
+[Array] First 20 elements:
+  38, 23, 52, 30, 16, 64, 43, 20, 57, 93, 92, 17, 63, 1, 82, 29, 53, 13, 73, 74 ...
+
+[Sequential] Computing average value...
+[Sequential] Sum: 49955
+[Sequential] Average: 49.9550
+[Sequential] Time: 0.0000 ms
+
+[Parallel] Computing average value with 8 threads...
+[Parallel] Sum: 49955
+[Parallel] Average: 49.9550
+[Parallel] Time: 0.2190 ms
+
+[Verification] Checking results...
+[Verification] Difference: 0.0000000000e+00
+[Verification] ✓ Results match! Both methods are correct.
+
+[Memory] Freeing dynamic array at address: 0x133809c00
+[Memory] Memory freed successfully
+=================================================================
+
+
+=================================================================
+  BENCHMARK: Dynamic Array Average Calculation
+=================================================================
+Array size: 100000 elements
+Threads: 8
+-----------------------------------------------------------------
+[Memory] Allocating dynamic array of size 100000
+[Memory] Array allocated at address: 0x138020000
+[Random] Filling array with random numbers [1, 100]
+[Random] Array filled successfully
+
+[Array] First 20 elements:
+  97, 68, 49, 75, 81, 75, 47, 80, 73, 90, 90, 24, 80, 37, 26, 71, 73, 6, 70, 44 ...
+
+[Sequential] Computing average value...
+[Sequential] Sum: 5047623
+[Sequential] Average: 50.4762
+[Sequential] Time: 0.0780 ms
+
+[Parallel] Computing average value with 8 threads...
+[Parallel] Sum: 5047623
+[Parallel] Average: 50.4762
+[Parallel] Time: 0.1060 ms
+
+[Verification] Checking results...
+[Verification] Difference: 0.0000000000e+00
+[Verification] ✓ Results match! Both methods are correct.
+
+[Memory] Freeing dynamic array at address: 0x138020000
+[Memory] Memory freed successfully
+=================================================================
+
+
+=================================================================
+  BENCHMARK: Dynamic Array Average Calculation
+=================================================================
+Array size: 10000000 elements
+Threads: 8
+-----------------------------------------------------------------
+[Memory] Allocating dynamic array of size 10000000
+[Memory] Array allocated at address: 0x134200000
+[Random] Filling array with random numbers [1, 100]
+[Random] Array filled successfully
+
+[Array] First 20 elements:
+  16, 69, 40, 3, 53, 36, 100, 11, 70, 84, 66, 65, 82, 58, 35, 70, 2, 25, 98, 45 ...
+
+[Sequential] Computing average value...
+[Sequential] Sum: 504966958
+[Sequential] Average: 50.4967
+[Sequential] Time: 5.8920 ms
+
+[Parallel] Computing average value with 8 threads...
+[Parallel] Sum: 504966958
+[Parallel] Average: 50.4967
+[Parallel] Time: 1.5250 ms
+
+[Verification] Checking results...
+[Verification] Difference: 0.0000000000e+00
+[Verification] ✓ Results match! Both methods are correct.
+
+[Memory] Freeing dynamic array at address: 0x134200000
+[Memory] Memory freed successfully
+=================================================================
+
+=================================================================
+  ANALYSIS
+=================================================================
+Key observations:
+1. For small arrays (N < 10000), sequential may be faster
+   - Thread creation overhead dominates
+2. For large arrays (N > 100000), parallel shows speedup
+   - Computational work outweighs overhead
+3. OpenMP reduction automatically handles:
+   - Thread-local sum variables
+   - Final reduction operation
+   - Thread synchronization
+4. Memory management is crucial:
+   - Always free allocated memory with delete[]
+   - Avoid memory leaks
+=================================================================
+
+[Program] All tests completed successfully!
+[Program] All memory freed. No memory leaks.
+

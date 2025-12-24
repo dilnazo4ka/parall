@@ -1,0 +1,180 @@
+
+=================================================================
+    LAB 2 - PART 1: Arrays and OpenMP Parallelization
+=================================================================
+[OpenMP] Available
+[OpenMP] Max threads: 8
+[OpenMP] Version: 201511
+
+=================================================================
+  DEMONSTRATION: Small Array Example
+=================================================================
+[Demo] Created array with predefined values
+
+[Demo Array] Size: 10
+[Demo Array] Elements: 45, 23, 78, 12, 89, 34, 56, 91, 5, 67
+
+[Demo] Sequential search:
+  MIN = 5
+  MAX = 91
+  Time: 0 ms
+=================================================================
+
+[Info] Running benchmarks with array sizes: 1000, 100000, 1000000, 10000000
+
+=================================================================
+  BENCHMARK: Array MIN/MAX Search
+=================================================================
+Array size: 1000 elements
+Threads:    8
+-----------------------------------------------------------------
+[Array] Creating array of size 1000
+[Array] Random range: [1, 100]
+[Array] Array created and filled
+
+[Sequential] Finding MIN and MAX...
+[Sequential] MIN = 1
+[Sequential] MAX = 100
+[Sequential] Time: 0.002000 ms
+
+[Parallel] Finding MIN and MAX with 8 threads...
+[Parallel] MIN = 1
+[Parallel] MAX = 100
+[Parallel] Time: 0.153000 ms
+
+[Verification] Checking results...
+[Verification] MIN: Sequential = 1, Parallel = 1 → ✓ MATCH
+[Verification] MAX: Sequential = 100, Parallel = 100 → ✓ MATCH
+[Verification] ✓ All results are correct!
+
+[Performance Analysis]
+  Sequential time: 0.002000 ms
+  Parallel time:   0.153000 ms
+  Speedup:         0.013x
+  Efficiency:      0.16%
+  → Sequential version is FASTER (array too small or overhead too high)
+=================================================================
+
+=================================================================
+  BENCHMARK: Array MIN/MAX Search
+=================================================================
+Array size: 100000 elements
+Threads:    8
+-----------------------------------------------------------------
+[Array] Creating array of size 100000
+[Array] Random range: [1, 100]
+[Array] Array created and filled
+
+[Sequential] Finding MIN and MAX...
+[Sequential] MIN = 1
+[Sequential] MAX = 100
+[Sequential] Time: 0.167000 ms
+
+[Parallel] Finding MIN and MAX with 8 threads...
+[Parallel] MIN = 1
+[Parallel] MAX = 100
+[Parallel] Time: 0.079000 ms
+
+[Verification] Checking results...
+[Verification] MIN: Sequential = 1, Parallel = 1 → ✓ MATCH
+[Verification] MAX: Sequential = 100, Parallel = 100 → ✓ MATCH
+[Verification] ✓ All results are correct!
+
+[Performance Analysis]
+  Sequential time: 0.167000 ms
+  Parallel time:   0.079000 ms
+  Speedup:         2.114x
+  Efficiency:      26.42%
+  → Parallel version is FASTER
+=================================================================
+
+=================================================================
+  BENCHMARK: Array MIN/MAX Search
+=================================================================
+Array size: 1000000 elements
+Threads:    8
+-----------------------------------------------------------------
+[Array] Creating array of size 1000000
+[Array] Random range: [1, 100]
+[Array] Array created and filled
+
+[Sequential] Finding MIN and MAX...
+[Sequential] MIN = 1
+[Sequential] MAX = 100
+[Sequential] Time: 1.534000 ms
+
+[Parallel] Finding MIN and MAX with 8 threads...
+[Parallel] MIN = 1
+[Parallel] MAX = 100
+[Parallel] Time: 0.311000 ms
+
+[Verification] Checking results...
+[Verification] MIN: Sequential = 1, Parallel = 1 → ✓ MATCH
+[Verification] MAX: Sequential = 100, Parallel = 100 → ✓ MATCH
+[Verification] ✓ All results are correct!
+
+[Performance Analysis]
+  Sequential time: 1.534000 ms
+  Parallel time:   0.311000 ms
+  Speedup:         4.932x
+  Efficiency:      61.66%
+  → Parallel version is FASTER
+=================================================================
+
+=================================================================
+  BENCHMARK: Array MIN/MAX Search
+=================================================================
+Array size: 10000000 elements
+Threads:    8
+-----------------------------------------------------------------
+[Array] Creating array of size 10000000
+[Array] Random range: [1, 100]
+[Array] Array created and filled
+
+[Sequential] Finding MIN and MAX...
+[Sequential] MIN = 1
+[Sequential] MAX = 100
+[Sequential] Time: 11.086000 ms
+
+[Parallel] Finding MIN and MAX with 8 threads...
+[Parallel] MIN = 1
+[Parallel] MAX = 100
+[Parallel] Time: 1.676000 ms
+
+[Verification] Checking results...
+[Verification] MIN: Sequential = 1, Parallel = 1 → ✓ MATCH
+[Verification] MAX: Sequential = 100, Parallel = 100 → ✓ MATCH
+[Verification] ✓ All results are correct!
+
+[Performance Analysis]
+  Sequential time: 11.086000 ms
+  Parallel time:   1.676000 ms
+  Speedup:         6.615x
+  Efficiency:      82.68%
+  → Parallel version is FASTER
+=================================================================
+
+=================================================================
+  SUMMARY
+=================================================================
+Key findings:
+1. For small arrays (N < 10,000):
+   - Sequential is often faster
+   - Thread overhead dominates computation time
+
+2. For medium arrays (10,000 < N < 1,000,000):
+   - Parallel starts showing benefits
+   - Speedup increases with array size
+
+3. For large arrays (N > 1,000,000):
+   - Parallel provides significant speedup
+   - Efficiency depends on number of cores
+
+4. OpenMP reduction:
+   - Simplifies parallel min/max finding
+   - Automatically handles thread coordination
+   - No manual synchronization needed
+=================================================================
+
+[Program] All tests completed successfully!
+

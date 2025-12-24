@@ -1,0 +1,445 @@
+
+=================================================================
+    DATA STRUCTURES BENCHMARK WITH OpenMP (C++)
+=================================================================
+INFO: OpenMP available
+  - Available threads: 8
+  - Compiled with -fopenmp
+
+Benchmark will run the following tests:
+  1) LinkedList (single linked list)
+  2) Stack (LIFO)
+  3) Queue (FIFO)
+  4) Combined test (mixed operations)
+
+Test sizes: 10000, 100000, 1000000
+
+-----------------------------------------------------------------
+ Running benchmark round: N = 10000
+-----------------------------------------------------------------
+
+=================================================================
+                  LINKED LIST (Single linked list)
+=================================================================
+Task: Add 10000 elements to a linked list
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Description: single thread adds all elements sequentially
+    Method: simple for-loop without parallelization
+    Status: starting...
+    Done.
+    - Elements added: 10000
+    - Time: 0.561 ms
+    - Rate: 17825.3 elements/ms
+
+[2] PARALLEL ADD
+    Description: 8 threads add elements concurrently
+    Method: #pragma omp parallel for (work distribution)
+    Synchronization: mutex (to protect shared list)
+    Status: starting...
+    Done.
+    - Elements added: 10000
+    - Time: 1.799 ms
+    - Rate: 5558.64 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.31184x
+    - Efficiency: 3.898%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             STACK (LIFO)
+=================================================================
+Task: Push 10000 elements to the stack
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: LIFO - last in, first out
+
+[1] SEQUENTIAL PUSH
+    Description: single thread pushes all elements
+    Operation: push on top of the stack
+    Status: starting...
+    Done.
+    - Elements pushed: 10000
+    - Time: 0.269 ms
+    - Rate: 37174.7 elements/ms
+
+[2] PARALLEL PUSH
+    Description: 8 threads push elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect stack data)
+    Status: starting...
+    Done.
+    - Elements pushed: 10000
+    - Time: 0.721 ms
+    - Rate: 13869.6 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.373093x
+    - Efficiency: 4.66366%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             QUEUE (FIFO)
+=================================================================
+Task: Enqueue 10000 elements to the queue
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: FIFO - first in, first out
+
+[1] SEQUENTIAL ENQUEUE
+    Description: single thread enqueues all elements
+    Status: starting...
+    Done.
+    - Elements enqueued: 10000
+    - Time: 0.194 ms
+    - Rate: 51546.4 elements/ms
+
+[2] PARALLEL ENQUEUE
+    Description: 8 threads enqueue elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect queue data)
+    Status: starting...
+    Done.
+    - Elements enqueued: 10000
+    - Time: 0.938 ms
+    - Rate: 10661 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.206823x
+    • Efficiency: 2.58529%
+    • Parallelization was slower (N might be too small).
+=================================================================
+
+---------------------------------------------------------------
+                COMBINED TEST (Mixed Operations)
+---------------------------------------------------------------
+Task: Perform 10000 mixed operations
+      (enqueue + dequeue)
+Threads for parallel mode: 8
+---------------------------------------------------------------
+Description: Simulates a queue workload with concurrent producers
+             and sequential consumers
+
+[1] SEQUENTIAL OPERATIONS
+    Description: single thread enqueues and dequeues elements
+    Logic: enqueue each element; dequeue every second element
+    Status: starting...
+    Done.
+    - Remaining elements: 5000
+    - Time: 0.449 ms
+    - Ops per ms: 22271.7
+
+[2] PARALLEL ENQUEUE OPERATIONS
+    Description: 8 threads enqueue elements concurrently
+    Note: dequeue remains sequential due to FIFO semantics
+    Status: starting...
+    - Parallel enqueue finished, starting sequential dequeue...
+    Done.
+    - Remaining elements: 5000
+    - Time: 1.134 ms
+    - Ops per ms: 8818.34
+
+[3] RESULTS (analysis)
+    - Speedup: 0.395944x
+    - Efficiency: 4.94929%
+═══════════════════════════════════════════════════════════════
+
+Round completed.
+
+-----------------------------------------------------------------
+ Running benchmark round: N = 100000
+-----------------------------------------------------------------
+
+=================================================================
+                  LINKED LIST (Single linked list)
+=================================================================
+Task: Add 100000 elements to a linked list
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Description: single thread adds all elements sequentially
+    Method: simple for-loop without parallelization
+    Status: starting...
+    Done.
+    - Elements added: 100000
+    - Time: 4.58 ms
+    - Rate: 21834.1 elements/ms
+
+[2] PARALLEL ADD
+    Description: 8 threads add elements concurrently
+    Method: #pragma omp parallel for (work distribution)
+    Synchronization: mutex (to protect shared list)
+    Status: starting...
+    Done.
+    - Elements added: 100000
+    - Time: 13.784 ms
+    - Rate: 7254.79 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.332269x
+    - Efficiency: 4.15337%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             STACK (LIFO)
+=================================================================
+Task: Push 100000 elements to the stack
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: LIFO - last in, first out
+
+[1] SEQUENTIAL PUSH
+    Description: single thread pushes all elements
+    Operation: push on top of the stack
+    Status: starting...
+    Done.
+    - Elements pushed: 100000
+    - Time: 1.401 ms
+    - Rate: 71377.6 elements/ms
+
+[2] PARALLEL PUSH
+    Description: 8 threads push elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect stack data)
+    Status: starting...
+    Done.
+    - Elements pushed: 100000
+    - Time: 4.534 ms
+    - Rate: 22055.6 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.308999x
+    - Efficiency: 3.86248%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             QUEUE (FIFO)
+=================================================================
+Task: Enqueue 100000 elements to the queue
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: FIFO - first in, first out
+
+[1] SEQUENTIAL ENQUEUE
+    Description: single thread enqueues all elements
+    Status: starting...
+    Done.
+    - Elements enqueued: 100000
+    - Time: 1.27 ms
+    - Rate: 78740.2 elements/ms
+
+[2] PARALLEL ENQUEUE
+    Description: 8 threads enqueue elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect queue data)
+    Status: starting...
+    Done.
+    - Elements enqueued: 100000
+    - Time: 5.398 ms
+    - Rate: 18525.4 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.235272x
+    • Efficiency: 2.9409%
+    • Parallelization was slower (N might be too small).
+=================================================================
+
+---------------------------------------------------------------
+                COMBINED TEST (Mixed Operations)
+---------------------------------------------------------------
+Task: Perform 100000 mixed operations
+      (enqueue + dequeue)
+Threads for parallel mode: 8
+---------------------------------------------------------------
+Description: Simulates a queue workload with concurrent producers
+             and sequential consumers
+
+[1] SEQUENTIAL OPERATIONS
+    Description: single thread enqueues and dequeues elements
+    Logic: enqueue each element; dequeue every second element
+    Status: starting...
+    Done.
+    - Remaining elements: 50000
+    - Time: 2.224 ms
+    - Ops per ms: 44964
+
+[2] PARALLEL ENQUEUE OPERATIONS
+    Description: 8 threads enqueue elements concurrently
+    Note: dequeue remains sequential due to FIFO semantics
+    Status: starting...
+    - Parallel enqueue finished, starting sequential dequeue...
+    Done.
+    - Remaining elements: 50000
+    - Time: 6.044 ms
+    - Ops per ms: 16545.3
+
+[3] RESULTS (analysis)
+    - Speedup: 0.367968x
+    - Efficiency: 4.5996%
+═══════════════════════════════════════════════════════════════
+
+Round completed.
+
+-----------------------------------------------------------------
+ Running benchmark round: N = 1000000
+-----------------------------------------------------------------
+
+=================================================================
+                  LINKED LIST (Single linked list)
+=================================================================
+Task: Add 1000000 elements to a linked list
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Description: single thread adds all elements sequentially
+    Method: simple for-loop without parallelization
+    Status: starting...
+    Done.
+    - Elements added: 1000000
+    - Time: 22.613 ms
+    - Rate: 44222.3 elements/ms
+
+[2] PARALLEL ADD
+    Description: 8 threads add elements concurrently
+    Method: #pragma omp parallel for (work distribution)
+    Synchronization: mutex (to protect shared list)
+    Status: starting...
+    Done.
+    - Elements added: 1000000
+    - Time: 81.637 ms
+    - Rate: 12249.3 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.276995x
+    - Efficiency: 3.46243%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             STACK (LIFO)
+=================================================================
+Task: Push 1000000 elements to the stack
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: LIFO - last in, first out
+
+[1] SEQUENTIAL PUSH
+    Description: single thread pushes all elements
+    Operation: push on top of the stack
+    Status: starting...
+    Done.
+    - Elements pushed: 1000000
+    - Time: 9.788 ms
+    - Rate: 102166 elements/ms
+
+[2] PARALLEL PUSH
+    Description: 8 threads push elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect stack data)
+    Status: starting...
+    Done.
+    - Elements pushed: 1000000
+    - Time: 33.753 ms
+    - Rate: 29627 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.289989x
+    - Efficiency: 3.62486%
+    - Parallelization was slower (N might be too small).
+=================================================================
+
+=================================================================
+                             QUEUE (FIFO)
+=================================================================
+Task: Enqueue 1000000 elements to the queue
+Threads for parallel mode: 8
+-----------------------------------------------------------------
+Note: FIFO - first in, first out
+
+[1] SEQUENTIAL ENQUEUE
+    Description: single thread enqueues all elements
+    Status: starting...
+    Done.
+    - Elements enqueued: 1000000
+    - Time: 9.474 ms
+    - Rate: 105552 elements/ms
+
+[2] PARALLEL ENQUEUE
+    Description: 8 threads enqueue elements concurrently
+    Method: #pragma omp parallel for
+    Synchronization: mutex (protect queue data)
+    Status: starting...
+    Done.
+    - Elements enqueued: 1000000
+    - Time: 41.64 ms
+    - Rate: 24015.4 elements/ms
+
+[3] RESULTS (analysis)
+    - Speedup: 0.227522x
+    • Efficiency: 2.84402%
+    • Parallelization was slower (N might be too small).
+=================================================================
+
+---------------------------------------------------------------
+                COMBINED TEST (Mixed Operations)
+---------------------------------------------------------------
+Task: Perform 1000000 mixed operations
+      (enqueue + dequeue)
+Threads for parallel mode: 8
+---------------------------------------------------------------
+Description: Simulates a queue workload with concurrent producers
+             and sequential consumers
+
+[1] SEQUENTIAL OPERATIONS
+    Description: single thread enqueues and dequeues elements
+    Logic: enqueue each element; dequeue every second element
+    Status: starting...
+    Done.
+    - Remaining elements: 500000
+    - Time: 18.192 ms
+    - Ops per ms: 54969.2
+
+[2] PARALLEL ENQUEUE OPERATIONS
+    Description: 8 threads enqueue elements concurrently
+    Note: dequeue remains sequential due to FIFO semantics
+    Status: starting...
+    - Parallel enqueue finished, starting sequential dequeue...
+    Done.
+    - Remaining elements: 500000
+    - Time: 50.506 ms
+    - Ops per ms: 19799.6
+
+[3] RESULTS (analysis)
+    - Speedup: 0.360195x
+    - Efficiency: 4.50244%
+═══════════════════════════════════════════════════════════════
+
+Round completed.
+
+DEMONSTRATION: basic operations
+Adding elements to linked list: 5, 3, 7, 1
+List: 1 -> 7 -> 3 -> 5 -> nullptr
+List size: 4
+Search for 3: Found
+List: 7 -> 3 -> 5 -> nullptr
+
+Stack demo:
+Stack (top to bottom): 30 20 10 
+Stack size: 3
+Stack (top to bottom): 20 10 
+
+Queue demo:
+Queue (front to back): 100 200 300 
+Queue size: 3
+Queue (front to back): 200 300 
+
+All done.

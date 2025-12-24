@@ -1,0 +1,372 @@
+
+=================================================================
+    LAB 2 - PART 2: Data Structures with OpenMP
+=================================================================
+[OpenMP] Available
+[OpenMP] Max threads: 8
+
+Program will test:
+  1. Linked List (dynamic pointer-based structure)
+  2. Stack (LIFO structure)
+  3. Queue (FIFO structure)
+
+Test sizes: 10, 10000, 100000, 1000000
+
+-----------------------------------------------------------------
+  ROUND: N = 10 elements
+-----------------------------------------------------------------
+
+=================================================================
+  TEST: Linked List (Single Linked List)
+=================================================================
+Task: Add 10 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Elements added: 10
+    Time: 0.002000 ms
+    Rate: 5000.00 elem/ms
+
+[2] PARALLEL ADD
+    Elements added: 10
+    Time: 0.200000 ms
+    Rate: 50.00 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.010x
+    Efficiency: 0.12%
+    → Sequential is FASTER (overhead dominates)
+
+[4] DEMONSTRATION
+    Sequential list:
+    List: 9 -> 8 -> 7 -> 6 -> 5 -> 4 -> 3 -> 2 -> 1 -> 0 -> nullptr
+    Parallel list:
+    List: 9 -> 7 -> 1 -> 0 -> 8 -> 6 -> 5 -> 4 -> 3 -> 2 -> nullptr
+
+    Search for 5:
+      Sequential: Found
+      Parallel: Found
+
+    Removing front element:
+      Sequential size after removal: 9
+      Parallel size after removal: 9
+=================================================================
+
+=================================================================
+  TEST: Stack (LIFO - Last In First Out)
+=================================================================
+Task: Push 10 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL PUSH
+    Elements pushed: 10
+    Time: 0.001000 ms
+    Rate: 10000.00 elem/ms
+
+[2] PARALLEL PUSH
+    Elements pushed: 10
+    Time: 0.076000 ms
+    Rate: 131.58 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.013x
+    Efficiency: 0.16%
+    → Sequential is FASTER (overhead dominates)
+
+[4] DEMONSTRATION
+    Sequential stack:
+    Stack (top to bottom): 9 8 7 6 5 4 3 2 1 0 
+    Parallel stack:
+    Stack (top to bottom): 3 1 0 6 8 9 7 5 4 2 
+
+    Popping top element:
+      Sequential top value: 9
+      Parallel top value: 3
+      Sequential size after pop: 9
+      Parallel size after pop: 9
+=================================================================
+
+=================================================================
+  TEST: Queue (FIFO - First In First Out)
+=================================================================
+Task: Enqueue 10 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ENQUEUE
+    Elements enqueued: 10
+    Time: 0.002000 ms
+    Rate: 5000.00 elem/ms
+
+[2] PARALLEL ENQUEUE
+    Elements enqueued: 10
+    Time: 0.091000 ms
+    Rate: 109.89 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.022x
+    Efficiency: 0.27%
+    → Sequential is FASTER (overhead dominates)
+
+[4] DEMONSTRATION
+    Sequential queue:
+    Queue (front to back): 0 1 2 3 4 5 6 7 8 9 
+    Parallel queue:
+    Queue (front to back): 5 7 4 8 6 2 3 9 0 1 
+
+    Dequeuing front element:
+      Sequential front value: 0
+      Parallel front value: 5
+      Sequential size after dequeue: 9
+      Parallel size after dequeue: 9
+=================================================================
+
+-----------------------------------------------------------------
+  ROUND: N = 10000 elements
+-----------------------------------------------------------------
+
+=================================================================
+  TEST: Linked List (Single Linked List)
+=================================================================
+Task: Add 10000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Elements added: 10000
+    Time: 0.539000 ms
+    Rate: 18552.88 elem/ms
+
+[2] PARALLEL ADD
+    Elements added: 10000
+    Time: 1.504000 ms
+    Rate: 6648.94 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.358x
+    Efficiency: 4.48%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Stack (LIFO - Last In First Out)
+=================================================================
+Task: Push 10000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL PUSH
+    Elements pushed: 10000
+    Time: 0.243000 ms
+    Rate: 41152.26 elem/ms
+
+[2] PARALLEL PUSH
+    Elements pushed: 10000
+    Time: 0.846000 ms
+    Rate: 11820.33 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.287x
+    Efficiency: 3.59%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Queue (FIFO - First In First Out)
+=================================================================
+Task: Enqueue 10000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ENQUEUE
+    Elements enqueued: 10000
+    Time: 0.210000 ms
+    Rate: 47619.05 elem/ms
+
+[2] PARALLEL ENQUEUE
+    Elements enqueued: 10000
+    Time: 0.642000 ms
+    Rate: 15576.32 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.327x
+    Efficiency: 4.09%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+-----------------------------------------------------------------
+  ROUND: N = 100000 elements
+-----------------------------------------------------------------
+
+=================================================================
+  TEST: Linked List (Single Linked List)
+=================================================================
+Task: Add 100000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Elements added: 100000
+    Time: 4.810000 ms
+    Rate: 20790.02 elem/ms
+
+[2] PARALLEL ADD
+    Elements added: 100000
+    Time: 12.291000 ms
+    Rate: 8136.03 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.391x
+    Efficiency: 4.89%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Stack (LIFO - Last In First Out)
+=================================================================
+Task: Push 100000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL PUSH
+    Elements pushed: 100000
+    Time: 1.413000 ms
+    Rate: 70771.41 elem/ms
+
+[2] PARALLEL PUSH
+    Elements pushed: 100000
+    Time: 4.201000 ms
+    Rate: 23803.86 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.336x
+    Efficiency: 4.20%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Queue (FIFO - First In First Out)
+=================================================================
+Task: Enqueue 100000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ENQUEUE
+    Elements enqueued: 100000
+    Time: 1.388000 ms
+    Rate: 72046.11 elem/ms
+
+[2] PARALLEL ENQUEUE
+    Elements enqueued: 100000
+    Time: 3.729000 ms
+    Rate: 26816.84 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.372x
+    Efficiency: 4.65%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+-----------------------------------------------------------------
+  ROUND: N = 1000000 elements
+-----------------------------------------------------------------
+
+=================================================================
+  TEST: Linked List (Single Linked List)
+=================================================================
+Task: Add 1000000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ADD
+    Elements added: 1000000
+    Time: 24.431000 ms
+    Rate: 40931.60 elem/ms
+
+[2] PARALLEL ADD
+    Elements added: 1000000
+    Time: 65.930000 ms
+    Rate: 15167.60 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.371x
+    Efficiency: 4.63%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Stack (LIFO - Last In First Out)
+=================================================================
+Task: Push 1000000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL PUSH
+    Elements pushed: 1000000
+    Time: 9.417000 ms
+    Rate: 106190.93 elem/ms
+
+[2] PARALLEL PUSH
+    Elements pushed: 1000000
+    Time: 30.726000 ms
+    Rate: 32545.73 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.306x
+    Efficiency: 3.83%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  TEST: Queue (FIFO - First In First Out)
+=================================================================
+Task: Enqueue 1000000 elements
+Threads: 8
+-----------------------------------------------------------------
+
+[1] SEQUENTIAL ENQUEUE
+    Elements enqueued: 1000000
+    Time: 9.373000 ms
+    Rate: 106689.43 elem/ms
+
+[2] PARALLEL ENQUEUE
+    Elements enqueued: 1000000
+    Time: 31.045000 ms
+    Rate: 32211.31 elem/ms
+
+[3] ANALYSIS
+    Speedup: 0.302x
+    Efficiency: 3.77%
+    → Sequential is FASTER (overhead dominates)
+=================================================================
+
+=================================================================
+  SUMMARY & CONCLUSIONS
+=================================================================
+
+1. LINKED LIST:
+   - Dynamic memory allocation for each node
+   - Mutex protects shared structure
+   - Parallel speedup depends on N and thread overhead
+
+2. STACK (LIFO):
+   - Vector-based implementation
+   - Fast push/pop operations O(1)
+   - Parallel push benefits from multiple threads
+
+3. QUEUE (FIFO):
+   - Vector-based with front index optimization
+   - Enqueue is easily parallelizable
+   - Dequeue typically sequential (FIFO order)
+
+4. PERFORMANCE INSIGHTS:
+   - Small N (< 10,000): sequential often faster
+   - Large N (> 100,000): parallel shows benefits
+   - Mutex contention can limit scalability
+   - Thread overhead vs. actual work is crucial
+=================================================================
+
+[Program] All tests completed successfully!
+
