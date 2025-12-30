@@ -1,0 +1,2 @@
+Sequential: min=2 max=99972 time=0.009528 ms
+Parallel:   min=2 max=99972 time=0.160277 ms
