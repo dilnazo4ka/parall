@@ -22,9 +22,7 @@ using namespace std;
 static const int CHUNK = 256;     // bubble chunk (локальная память)
 static const int TILE  = 256;     // merge tile (shared memory)
 
-// --------------------
 // bubble sort чанка в локальной памяти (1 поток на блок)
-// --------------------
 __global__ void bubble_sort_chunks(const int* in, int* out, int n) {
   int base = blockIdx.x * CHUNK;
   if (base >= n) return;
@@ -53,11 +51,9 @@ __global__ void bubble_sort_chunks(const int* in, int* out, int n) {
   }
 }
 
-// --------------------
 // merge двух соседних сегментов размера width
 // shared memory используется как буфер TILE+TILE
 // 1 поток на блок, чтобы не было дедлоков
-// --------------------
 __global__ void merge_pass_shared_1thread(const int* in, int* out, int width, int n) {
   extern __shared__ int sh[];
   int* L = sh;
@@ -129,7 +125,7 @@ int main() {
     bubble_sort_chunks<<<chunk_blocks, 1>>>(dA, dB, n);
     CHECK_LAST_KERNEL();
 
-    // 2) merge passes: width = CHUNK, 2*CHUNK, ...
+    // 2) merge passes: width = CHUNK, 2*CHUNK
     for (int width = CHUNK; width < n; width *= 2) {
       int pairs = (n + 2 * width - 1) / (2 * width);
       int shmem = 2 * TILE * (int)sizeof(int);

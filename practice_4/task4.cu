@@ -23,28 +23,22 @@ using namespace std;
   } \
 } while(0)
 
-// ----------------------------
 // CUDA events helper
-// ----------------------------
 static float elapsed_ms(cudaEvent_t s, cudaEvent_t e) {
   float ms = 0.0f;
   CHECK(cudaEventElapsedTime(&ms, s, e));
   return ms;
 }
 
-// ============================================================================
 // TASK 2 part for TASK 4: SUM (a) global atomic (медленно)
-// ============================================================================
 __global__ void sum_global_atomic(const float* in, float* out, int n) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   if (idx < n) atomicAdd(out, in[idx]);
 }
 
-// ============================================================================
 // TASK 2 optimized: SUM (b) shared reduce two-pass (быстро)
 // 1-й pass: каждый блок считает частичную сумму в shared и пишет в partial[]
 // 2-й pass: редукция partial[] до одного числа
-// ============================================================================
 __global__ void block_reduce_sum(const float* in, float* partial, int n) {
   extern __shared__ float s[];
   int tid = threadIdx.x;
@@ -80,13 +74,9 @@ __global__ void final_reduce_sum(const float* partial, float* out, int n) {
   if (tid == 0) out[blockIdx.x] = s[0];
 }
 
-// ============================================================================
 // SORT on GPU: thrust::sort (очень быстрый)
-// ============================================================================
 
-// ----------------------------
 // benchmark: device-only sum global atomic
-// ----------------------------
 static float bench_sum_global_atomic(const float* d_in, float* d_out, int n) {
   int threads = 256;
   int blocks  = (n + threads - 1) / threads;
@@ -110,9 +100,7 @@ static float bench_sum_global_atomic(const float* d_in, float* d_out, int n) {
   return ms;
 }
 
-// ----------------------------
 // benchmark: device-only sum shared two-pass
-// ----------------------------
 static float bench_sum_shared_two_pass(const float* d_in, float* d_partial, float* d_out, int n) {
   int threads = 256;
   int blocks  = (n + threads - 1) / threads;
@@ -156,9 +144,7 @@ static float bench_sum_shared_two_pass(const float* d_in, float* d_partial, floa
   return ms;
 }
 
-// ----------------------------
 // benchmark: CPU sort (std::sort)
-// ----------------------------
 static double bench_cpu_sort(vector<int>& a) {
   auto t1 = chrono::high_resolution_clock::now();
   sort(a.begin(), a.end());
@@ -166,9 +152,7 @@ static double bench_cpu_sort(vector<int>& a) {
   return chrono::duration<double, milli>(t2 - t1).count();
 }
 
-// ----------------------------
 // benchmark: GPU sort (thrust::sort) device-only
-// ----------------------------
 static float bench_gpu_sort_thrust(int* d_data, int n) {
   cudaEvent_t s, e;
   CHECK(cudaEventCreate(&s));
@@ -218,21 +202,21 @@ int main() {
   cout << "n,sum_global_atomic_ms,sum_shared_two_pass_ms,cpu_sort_ms,gpu_sort_thrust_ms\n";
 
   for (int n : sizes) {
-    // ----------------- генерю данные -----------------
+    // генерю данные
     for (int i = 0; i < n; i++) {
       h_sum[i]  = float(gen() % 100);
       h_sort[i] = int(gen() % 100000);
     }
 
-    // ----------------- копирую на GPU -----------------
+    // копирую на GPU
     CHECK(cudaMemcpy(d_in, h_sum.data(), n * sizeof(float), cudaMemcpyHostToDevice));
     CHECK(cudaMemcpy(d_sort, h_sort.data(), n * sizeof(int), cudaMemcpyHostToDevice));
 
-    // ----------------- SUM timings (device-only) -----------------
+    // SUM timings (device-only)
     float t_sum_global = bench_sum_global_atomic(d_in, d_out, n);
     float t_sum_shared = bench_sum_shared_two_pass(d_in, d_partial, d_out, n);
 
-    // ----------------- SORT timings -----------------
+    // SORT timings
     // CPU sort на копии
     vector<int> cpu_copy(h_sort.begin(), h_sort.begin() + n);
     double t_cpu_sort = bench_cpu_sort(cpu_copy);

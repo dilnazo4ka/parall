@@ -16,9 +16,7 @@ using namespace std;                       // чтобы не писать std::
   }                                        \
 } while(0)
 
-// ------------------------------
 // функция: читаю kernel.cl в строку
-// ------------------------------
 static string load_text_file(const string& path) {          // объявляю функцию чтения файла
   ifstream f(path);                                         // открываю файл
   if (!f.is_open()) {                                       // проверяю открылся ли
@@ -30,9 +28,7 @@ static string load_text_file(const string& path) {          // объявляю 
   return ss.str();                                          // возвращаю содержимое
 }
 
-// ------------------------------
 // функция: выбрать устройство (CPU или GPU)
-// ------------------------------
 static cl_device_id pick_device(cl_device_type dtype) {     // dtype = CL_DEVICE_TYPE_CPU или GPU
   cl_int err;                                               // переменная для ошибок
 
@@ -60,9 +56,7 @@ static cl_device_id pick_device(cl_device_type dtype) {     // dtype = CL_DEVICE
   return nullptr;                                           // если не нашли — вернём nullptr
 }
 
-// ------------------------------
 // функция: выполнить vector_add на конкретном устройстве и вернуть время (мс)
-// ------------------------------
 static double run_vector_add(cl_device_type dtype, const vector<float>& A, const vector<float>& B, vector<float>& C) {
   cl_int err;                                               // для ошибок
   size_t N = A.size();                                      // размер массива
